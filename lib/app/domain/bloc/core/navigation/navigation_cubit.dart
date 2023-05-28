@@ -8,21 +8,21 @@ part 'navigation_state.dart';
 class NavigationCubit extends Cubit<NavigationState> {
   NavigationCubit() : super(NavigationState(NavbarItem.events, 2));
 
-  void getNavBarItem(NavbarItem navbarItem) {
-    switch (navbarItem) {
-      case NavbarItem.groups:
+  void navBarItemIndexChanged(int index) {
+    switch (index) {
+      case 0:
         emit(NavigationState(NavbarItem.groups, 0));
         break;
-      case NavbarItem.matching:
+      case 1:
         emit(NavigationState(NavbarItem.matching, 1));
         break;
-      case NavbarItem.events:
+      case 2:
         emit(NavigationState(NavbarItem.events, 2));
         break;
-      case NavbarItem.messages:
+      case 3:
         emit(NavigationState(NavbarItem.messages, 3));
         break;
-      case NavbarItem.profile:
+      case 4:
         emit(NavigationState(NavbarItem.profile, 4));
         break;
     }

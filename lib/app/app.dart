@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kampus/app/domain/bloc/core/navigation/navigation_cubit.dart';
 import 'package:kampus/app/presentation/theme.dart';
 import 'package:kampus/routes/app_router.dart';
+import 'package:sizer/sizer.dart';
 
 class KampusApp extends StatefulWidget {
   const KampusApp({super.key});
@@ -18,10 +19,12 @@ class _KampusAppState extends State<KampusApp> {
   Widget build(BuildContext context) {
     return BlocProvider<NavigationCubit>(
       create: (context) => NavigationCubit(),
-      child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          theme: KampusTheme.getTheme(context),
-          routerConfig: router),
+      child: Sizer(builder: (context, orientation, deviceType) {
+        return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: KampusTheme.getTheme(context),
+            routerConfig: router);
+      }),
     );
   }
 }
