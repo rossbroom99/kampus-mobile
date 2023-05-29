@@ -7,7 +7,6 @@ import 'core/service_locator.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setUpServiceLocator();
-  //await
-  //bootstrap(() => KampusApp());
-  runApp(KampusApp());
+  bootstrap(() => const KampusApp());
+  // runApp(KampusApp());
 }

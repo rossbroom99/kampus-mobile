@@ -22,91 +22,88 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
-  int _selectedIndex = 0;
+  int _selectedIndex = NavigationCubit.initialNavItem.index;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      bottomNavigationBar: BlocListener<NavigationCubit, NavigationState>(
-        listener: (context, state) {
-          setState(() {
-            _selectedIndex = state.index;
-          });
-        },
-        child: Container(
-          decoration: BoxDecoration(
-              color: bottomNavBackgroundColor,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 20,
-                  color: Colors.black.withOpacity(.1),
-                )
-              ],
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(7.w),
-                  topRight: Radius.circular(7.w))),
-          child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 2.8.h),
-              child: BlocBuilder<NavigationCubit, NavigationState>(
-                builder: (context, state) {
-                  return GNav(
-                    rippleColor: tabItemPillColor,
-                    activeColor: Colors.black,
-                    iconSize: 24,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.3.h),
-                    gap: 1.5.w,
-                    textSize: 5,
-                    textStyle: TextStyle(
-                        fontSize: 8.sp,
-                        color: mutedTextColor,
-                        fontWeight: FontWeight.w600),
-                    duration: const Duration(milliseconds: 400),
-                    backgroundColor: bottomNavBackgroundColor,
-                    tabBackgroundColor: tabItemPillColor,
-                    color: Colors.black,
-                    tabs: const [
-                      GButton(
-                        icon: IconlyBroken.user_3,
-                        iconColor: mutedTextColor,
-                        iconActiveColor: primaryColor,
-                        text: 'Groups',
-                      ),
-                      GButton(
-                        icon: IconlyLight.search,
-                        iconColor: mutedTextColor,
-                        iconActiveColor: primaryColor,
-                        text: 'Matcher',
-                      ),
-                      GButton(
-                        icon: IconlyLight.calendar,
-                        iconColor: mutedTextColor,
-                        iconActiveColor: primaryColor,
-                        text: 'Events',
-                      ),
-                      GButton(
-                        icon: IconlyLight.chat,
-                        iconColor: mutedTextColor,
-                        iconActiveColor: primaryColor,
-                        text: 'Messages',
-                      ),
-                      GButton(
-                        icon: IconlyLight.user,
-                        iconColor: mutedTextColor,
-                        iconActiveColor: primaryColor,
-                        text: 'Profile',
-                      ),
-                    ],
-                    selectedIndex: _selectedIndex,
-                    onTabChange: (index) {
-                      BlocProvider.of<NavigationCubit>(context)
-                          .navBarItemIndexChanged(index);
-                    },
-                  );
-                },
-              ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+            color: bottomNavBackgroundColor,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 20,
+                color: Colors.black.withOpacity(.1),
+              )
+            ],
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(7.w), topRight: Radius.circular(7.w))),
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 2.8.h),
+            child: BlocConsumer<NavigationCubit, NavigationState>(
+              listener: (context, state) {
+                setState(() {
+                  _selectedIndex = state.index;
+                });
+              },
+              builder: (context, state) {
+                return GNav(
+                  rippleColor: tabItemPillColor,
+                  activeColor: Colors.black,
+                  iconSize: 24,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.3.h),
+                  gap: 1.5.w,
+                  textSize: 5,
+                  textStyle: TextStyle(
+                      fontSize: 8.sp,
+                      color: mutedTextColor,
+                      fontWeight: FontWeight.w600),
+                  duration: const Duration(milliseconds: 400),
+                  backgroundColor: bottomNavBackgroundColor,
+                  tabBackgroundColor: tabItemPillColor,
+                  color: Colors.black,
+                  tabs: const [
+                    GButton(
+                      icon: IconlyBroken.user_3,
+                      iconColor: mutedTextColor,
+                      iconActiveColor: primaryColor,
+                      text: 'Groups',
+                    ),
+                    GButton(
+                      icon: IconlyLight.search,
+                      iconColor: mutedTextColor,
+                      iconActiveColor: primaryColor,
+                      text: 'Match',
+                    ),
+                    GButton(
+                      icon: IconlyLight.calendar,
+                      iconColor: mutedTextColor,
+                      iconActiveColor: primaryColor,
+                      text: 'Events',
+                    ),
+                    GButton(
+                      icon: IconlyLight.chat,
+                      iconColor: mutedTextColor,
+                      iconActiveColor: primaryColor,
+                      text: 'Messages',
+                    ),
+                    GButton(
+                      icon: IconlyLight.user,
+                      iconColor: mutedTextColor,
+                      iconActiveColor: primaryColor,
+                      text: 'Profile',
+                    ),
+                  ],
+                  selectedIndex: _selectedIndex,
+                  onTabChange: (index) {
+                    BlocProvider.of<NavigationCubit>(context)
+                        .navBarItemIndexChanged(index);
+                  },
+                );
+              },
             ),
           ),
         ),
