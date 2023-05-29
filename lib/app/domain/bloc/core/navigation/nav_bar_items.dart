@@ -1,1 +1,7 @@
-enum NavbarItem { events, matching, profile, messages, groups }
+enum NavbarItem {
+  groups,
+  matching,
+  events,
+  messages,
+  profile,
+}

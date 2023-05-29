@@ -13,9 +13,9 @@ import 'package:kampus/app/presentation/theme.dart';
 import 'package:sizer/sizer.dart';
 
 class RootScreen extends StatefulWidget {
-  static const String route = "/";
+  late NavbarItem targetTab;
 
-  const RootScreen({Key? key}) : super(key: key);
+  RootScreen({Key? key, required this.targetTab}) : super(key: key);
 
   @override
   State<RootScreen> createState() => _RootScreenState();
@@ -23,6 +23,16 @@ class RootScreen extends StatefulWidget {
 
 class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
   int _selectedIndex = NavigationCubit.initialNavItem.index;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<NavigationCubit>(context)
+          .navBarItemIndexChanged(widget.targetTab.index);
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
