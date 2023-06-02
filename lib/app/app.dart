@@ -24,7 +24,7 @@ class _KampusAppState extends State<KampusApp> {
         return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             theme: KampusTheme.getTheme(context),
-            routerConfig: router);
+            routerConfig: AppRouter.router);
       }),
     );
   }

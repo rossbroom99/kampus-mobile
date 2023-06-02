@@ -47,7 +47,7 @@ class _AppWrapperState extends State<AppWrapper> {
                 listeners: [
                   BlocListener<OnboardingBloc, OnboardingState>(
                     listener: (context, state) {
-                      if (state is OnboardingUninitialized) {
+                      if (state is OnboardingInProgress) {
                         context.navTo('/onboarding');
                       }
                     },

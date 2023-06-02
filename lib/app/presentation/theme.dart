@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const Color backgroundColor = Color(0xFF1a0136);
+const Color backgroundColor = Color(0xFF0A0016);
+const Color canvasColor = Color(0xFF10003D);
 const Color primaryColor = Color.fromARGB(255, 173, 0, 104);
 const Color secondaryColor = Color(0xFF09FBD3);
 const Color textColor = Colors.white;

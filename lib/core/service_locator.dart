@@ -12,14 +12,15 @@ import 'package:kampus/app/domain/usecases/set_first_load_usecase.dart';
 import 'package:kampus/app/domain/bloc/features/onboarding/onboarding_event.dart'
     as onboarding_event;
 import 'package:kampus/app/domain/bloc/core/auth/authentication_event.dart';
+import 'package:kampus/routes/app_router.dart';
 
 final serviceLocator = GetIt.instance;
 Future<void> setUpServiceLocator() async {
   await registerDataSources();
   await registerRepositories();
   await registerUserCases();
-  await registerServices();
   await registerBlocs();
+  await registerServices();
 }
 
 Future<void> registerDataSources() async {
@@ -37,7 +38,9 @@ Future<void> registerUserCases() async {
   serviceLocator.registerFactory(() => SetFirstLoadUseCase());
 }
 
-Future<void> registerServices() async {}
+Future<void> registerServices() async {
+  serviceLocator.registerSingleton(AppRouter());
+}
 
 Future<void> registerBlocs() async {
   serviceLocator.registerLazySingleton<AuthenticationBloc>(

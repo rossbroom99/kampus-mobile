@@ -18,8 +18,8 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   }
 
   _appStarted() async {
-    add(OnboardingCompleted());
-    return;
+    // add(OnboardingCompleted());
+    // return;
     var isFirstLoad = await serviceLocator<GetFirstLoadUseCase>().call();
     if (isFirstLoad) {
       add(OnboardingStarted());
