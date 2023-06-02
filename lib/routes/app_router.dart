@@ -1,8 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kampus/app/domain/bloc/core/navigation/nav_bar_items.dart';
+import 'package:kampus/app/domain/bloc/core/navigation/navigation_cubit.dart';
 import 'package:kampus/app/presentation/app_wrapper.dart';
+import 'package:kampus/app/presentation/features/login/login_screen.dart';
+import 'package:kampus/app/presentation/features/onboarding/onboarding_screen.dart';
+import 'package:kampus/core/service_locator.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
+  navigatorKey: navigatorKey,
+  redirect: navigationMiddleware,
   initialLocation: '/',
   routes: [
     GoRoute(
@@ -41,5 +50,45 @@ final router = GoRouter(
         targetTab: NavbarItem.profile,
       ),
     ),
+    GoRoute(
+      path: '/onboarding',
+      builder: (context, state) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => const LoginScreen(),
+    ),
   ],
 );
+
+// ignore: prefer_function_declarations_over_variables
+final navigationMiddleware = (BuildContext context, GoRouterState state) {
+  switch (state.location) {
+    case '/':
+      return null;
+    case '/groups':
+      return null;
+    case '/matching':
+      return null;
+    case '/events':
+      return null;
+    case '/messages':
+      return null;
+    case '/profile':
+      return null;
+    default:
+      break;
+  }
+  if (state.extra != null) {
+    var data = cast<Map<String, dynamic>>(state.extra);
+    if (data != null) {
+      if (data['redirect'] != null && data['redirect'] == false) {
+        return null;
+      }
+    }
+  }
+  serviceLocator<NavigationCubit>().redirectViaAppWrapper(state);
+  return '/';
+};
+
+T? cast<T>(x) => x is T ? x : null;
